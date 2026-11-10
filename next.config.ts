@@ -1,9 +1,14 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  async rewrites() {
+    return [
+      {
+        source: '/api/fitness/:path*',
+        destination: 'https://wedev-api.sky.pro/api/fitness/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
