@@ -1,8 +1,4 @@
-import type {
-  CourseProgress,
-  SingleWorkoutProgress,
-  WorkoutProgress,
-} from '../sharedTypes/types';
+import type { CourseProgress, SingleWorkoutProgress, WorkoutProgress } from '../sharedTypes/types';
 
 import { API_ENDPOINTS } from './constants';
 import { api } from './api';
