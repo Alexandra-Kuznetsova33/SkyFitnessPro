@@ -1,9 +1,4 @@
-import type {
-  Course,
-  CourseDetails,
-  MessageResponse,
-  Workout,
-} from '../sharedTypes/types';
+import type { Course, CourseDetails, MessageResponse, Workout } from '../sharedTypes/types';
 
 import { API_ENDPOINTS } from './constants';
 import { api } from './api';
@@ -24,7 +19,11 @@ export const getWorkouts = async (courseId: string): Promise<Workout[]> => {
 };
 
 export const addToMy = async (courseId: string): Promise<MessageResponse> => {
-  const response = await api.post<MessageResponse>(API_ENDPOINTS.users.myCourses, { courseId });
+  const response = await api.post<MessageResponse>(
+    API_ENDPOINTS.users.myCourses,
+    JSON.stringify({ courseId }),
+    { headers: { 'Content-Type': 'text/plain' } },
+  );
   return response.data;
 };
 

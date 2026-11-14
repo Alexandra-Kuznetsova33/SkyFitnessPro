@@ -23,8 +23,12 @@ export interface LoginResponse {
 // ===== Пользователь =====
 
 export interface User {
+  _id: string;
   email: string;
   selectedCourses: string[];
+  courseProgress: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 // ===== Курсы =====

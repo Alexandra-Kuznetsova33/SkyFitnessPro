@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Logo } from '../Logo/Logo';
 import { logout } from '../../redux/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { openAuthModal } from '../../redux/uiSlice';
 import styles from './Header.module.css';
 
 export const Header = () => {
@@ -16,7 +17,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const login = user?.email.split('@')[0] ?? '';
+  const login = user?.email?.split('@')[0] ?? '';
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -105,7 +106,11 @@ export const Header = () => {
             )}
           </div>
         ) : (
-          <button type="button" className={styles.loginButton}>
+          <button
+            type="button"
+            className={styles.loginButton}
+            onClick={() => dispatch(openAuthModal())}
+          >
             Войти
           </button>
         )}
