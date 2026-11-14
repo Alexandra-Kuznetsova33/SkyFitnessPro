@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { Course } from '../sharedTypes/types';
 import * as coursesService from '../services/courses';
+import { sortCourses } from '../utils/sortCourses';
 import { getApiErrorMessage } from '../utils/handleApiError';
 
 interface CoursesState {
@@ -20,7 +21,8 @@ export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: s
   'courses/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
-      return await coursesService.getAll();
+      const courses = await coursesService.getAll();
+      return sortCourses(courses);
     } catch (error) {
       return rejectWithValue(getApiErrorMessage(error));
     }
