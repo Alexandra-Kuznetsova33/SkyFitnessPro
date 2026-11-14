@@ -1,18 +1,23 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.text {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-black);
-  letter-spacing: -0.02em;
+.image {
+  width: 220px;
+  height: 35px;
+}
+
+@media (max-width: 768px) {
+  .image {
+    width: 180px;
+    height: 29px;
+  }
 }
 
 @media (max-width: 480px) {
-  .text {
-    font-size: 20px;
+  .image {
+    width: 150px;
+    height: 24px;
   }
 }

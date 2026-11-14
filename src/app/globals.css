@@ -14,12 +14,30 @@
   --radius-md: 16px;
   --radius-sm: 8px;
 
-  --container-width: 1160px;
-  --container-padding: 20px;
+  --container-width: 1440px;
+  --container-padding: 140px;
 
   --header-height: 80px;
 
   --font-family-base: var(--font-roboto), 'Inter', Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --container-padding: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 16px;
+  }
 }
 
 html,
