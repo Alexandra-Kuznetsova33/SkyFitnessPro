@@ -8,11 +8,18 @@
     box-shadow 0.2s;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .cover {
@@ -27,6 +34,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
   width: 44px;
   height: 44px;
   border-radius: 50%;

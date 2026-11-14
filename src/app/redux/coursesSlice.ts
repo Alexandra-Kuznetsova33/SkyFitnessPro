@@ -1,21 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { Course } from '../sharedTypes/types';
-import * as coursesService from '../services/courses';
 import * as authService from '../services/auth';
-import { sortCourses } from '../utils/sortCourses';
+import * as coursesService from '../services/courses';
 import { getApiErrorMessage } from '../utils/handleApiError';
+import { sortCourses } from '../utils/sortCourses';
 
 interface CoursesState {
   items: Course[];
+  currentCourse: Course | null;
   isLoading: boolean;
+  isCurrentLoading: boolean;
   error: string | null;
+  currentError: string | null;
 }
 
 const initialState: CoursesState = {
   items: [],
+  currentCourse: null,
   isLoading: false,
+  isCurrentLoading: false,
   error: null,
+  currentError: null,
 };
 
 export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: string }>(
@@ -24,6 +30,17 @@ export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: s
     try {
       const courses = await coursesService.getAll();
       return sortCourses(courses);
+    } catch (error) {
+      return rejectWithValue(getApiErrorMessage(error));
+    }
+  },
+);
+
+export const fetchCourseById = createAsyncThunk<Course, string, { rejectValue: string }>(
+  'courses/fetchById',
+  async (courseId, { rejectWithValue }) => {
+    try {
+      return await coursesService.getById(courseId);
     } catch (error) {
       return rejectWithValue(getApiErrorMessage(error));
     }
@@ -73,6 +90,20 @@ const coursesSlice = createSlice({
       .addCase(fetchAllCourses.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload ?? 'Не удалось загрузить курсы';
+      })
+
+      .addCase(fetchCourseById.pending, (state) => {
+        state.currentCourse = null;
+        state.isCurrentLoading = true;
+        state.currentError = null;
+      })
+      .addCase(fetchCourseById.fulfilled, (state, action) => {
+        state.isCurrentLoading = false;
+        state.currentCourse = action.payload;
+      })
+      .addCase(fetchCourseById.rejected, (state, action) => {
+        state.isCurrentLoading = false;
+        state.currentError = action.payload ?? 'Не удалось загрузить курс';
       });
   },
 });
