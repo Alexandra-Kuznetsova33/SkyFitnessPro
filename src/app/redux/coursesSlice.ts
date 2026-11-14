@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { Course } from '../sharedTypes/types';
 import * as coursesService from '../services/courses';
+import * as authService from '../services/auth';
 import { sortCourses } from '../utils/sortCourses';
 import { getApiErrorMessage } from '../utils/handleApiError';
 
@@ -23,6 +24,32 @@ export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: s
     try {
       const courses = await coursesService.getAll();
       return sortCourses(courses);
+    } catch (error) {
+      return rejectWithValue(getApiErrorMessage(error));
+    }
+  },
+);
+
+export const addCourse = createAsyncThunk<string[], string, { rejectValue: string }>(
+  'courses/add',
+  async (courseId, { rejectWithValue }) => {
+    try {
+      await coursesService.addToMy(courseId);
+      const user = await authService.getMe();
+      return user.selectedCourses;
+    } catch (error) {
+      return rejectWithValue(getApiErrorMessage(error));
+    }
+  },
+);
+
+export const removeCourse = createAsyncThunk<string[], string, { rejectValue: string }>(
+  'courses/remove',
+  async (courseId, { rejectWithValue }) => {
+    try {
+      await coursesService.removeFromMy(courseId);
+      const user = await authService.getMe();
+      return user.selectedCourses;
     } catch (error) {
       return rejectWithValue(getApiErrorMessage(error));
     }

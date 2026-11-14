@@ -1,8 +1,9 @@
 'use client';
-
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import type { Course } from '../../sharedTypes/types';
+import { addCourse, removeCourse } from '../../redux/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { openAuthModal } from '../../redux/uiSlice';
 import styles from './CourseCard.module.css';
@@ -27,18 +28,29 @@ export const CourseCard = ({ course }: CourseCardProps) => {
 
   const isAdded = user?.selectedCourses.includes(course._id) ?? false;
   const bgColor = COVER_COLORS[course.nameRU] ?? DEFAULT_COLOR;
+  const [isPending, setIsPending] = useState(false);
 
-  const handleAddClick = () => {
+  const handleAddClick = async () => {
     if (!user) {
       dispatch(openAuthModal());
       return;
     }
 
-    toast.info(
-      isAdded
-        ? 'Удаление курса будет реализовано в следующем шаге'
-        : 'Добавление курса будет реализовано в следующем шаге',
-    );
+    setIsPending(true);
+    const action = isAdded
+      ? await dispatch(removeCourse(course._id))
+      : await dispatch(addCourse(course._id));
+    setIsPending(false);
+
+    if (removeCourse.rejected.match(action) || addCourse.rejected.match(action)) {
+      const errorMessage = typeof action.payload === 'string' ? action.payload : null;
+      if (errorMessage) {
+        toast.error(errorMessage);
+      }
+      return;
+    }
+
+    toast.success(isAdded ? 'Курс удалён' : 'Курс добавлен');
   };
 
   return (
@@ -49,6 +61,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
           className={`${styles.addButton} ${isAdded ? styles.addButtonAdded : ''}`}
           onClick={handleAddClick}
           aria-label={isAdded ? 'Удалить курс' : 'Добавить курс'}
+          disabled={isPending}
         >
           <svg
             width="20"
@@ -83,15 +96,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
-              <rect
-                x="2"
-                y="4"
-                width="14"
-                height="12"
-                rx="2"
-                stroke="#000000"
-                strokeWidth="1.5"
-              />
+              <rect x="2" y="4" width="14" height="12" rx="2" stroke="#000000" strokeWidth="1.5" />
               <path d="M2 8H16" stroke="#000000" strokeWidth="1.5" />
               <path d="M6 2V5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
               <path d="M12 2V5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />

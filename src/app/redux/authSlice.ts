@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { LoginRequest, RegisterRequest, User } from '../sharedTypes/types';
 import * as authService from '../services/auth';
 import { getApiErrorMessage } from '../utils/handleApiError';
+import { addCourse, removeCourse } from './coursesSlice';
 
 interface AuthState {
   token: string | null;
@@ -40,20 +41,21 @@ export const loginThunk = createAsyncThunk<AuthSuccess, LoginRequest, { rejectVa
   },
 );
 
-export const registerThunk = createAsyncThunk<AuthSuccess, RegisterRequest, { rejectValue: string }>(
-  'auth/register',
-  async (data, { rejectWithValue }) => {
-    try {
-      await authService.register(data);
-      const { token } = await authService.login({ email: data.email, password: data.password });
-      localStorage.setItem('token', token);
-      const user = await authService.getMe();
-      return { token, user };
-    } catch (error) {
-      return rejectWithValue(getApiErrorMessage(error));
-    }
-  },
-);
+export const registerThunk = createAsyncThunk<
+  AuthSuccess,
+  RegisterRequest,
+  { rejectValue: string }
+>('auth/register', async (data, { rejectWithValue }) => {
+  try {
+    await authService.register(data);
+    const { token } = await authService.login({ email: data.email, password: data.password });
+    localStorage.setItem('token', token);
+    const user = await authService.getMe();
+    return { token, user };
+  } catch (error) {
+    return rejectWithValue(getApiErrorMessage(error));
+  }
+});
 
 export const initializeAuthThunk = createAsyncThunk<
   AuthSuccess | null,
@@ -137,6 +139,16 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isInitialized = true;
         state.error = action.payload ?? null;
+      })
+      .addCase(addCourse.fulfilled, (state, action) => {
+        if (state.user) {
+          state.user.selectedCourses = action.payload;
+        }
+      })
+      .addCase(removeCourse.fulfilled, (state, action) => {
+        if (state.user) {
+          state.user.selectedCourses = action.payload;
+        }
       });
   },
 });
