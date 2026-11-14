@@ -20,10 +20,143 @@
   letter-spacing: -0.02em;
 }
 
-.description {
-  font-size: 18px;
-  line-height: 1.6;
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 700;
   color: var(--color-text);
+  line-height: 1.2;
+}
+
+.sectionList,
+.directionsList,
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fittingItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.fittingNumber {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.directionItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.directionPlus {
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.benefitDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text);
+}
+
+.runnerWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  margin: 20px 0;
+}
+
+.vectorImage {
+  position: absolute;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  z-index: 0;
+}
+
+.runnerImage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .runnerWrapper {
+    min-height: 350px;
+  }
+
+  .runnerImage {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .runnerWrapper {
+    min-height: 280px;
+  }
+
+  .runnerImage {
+    max-width: 240px;
+  }
+}
+
+.addButton {
+  align-self: center;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-black);
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  transition: background 0.2s;
+  min-width: 280px;
+}
+
+.addButton:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.addButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .loading {
@@ -41,6 +174,10 @@
 }
 
 @media (max-width: 768px) {
+  .page {
+    gap: 28px;
+  }
+
   .banner {
     padding: 40px 24px;
     min-height: 180px;
@@ -49,6 +186,29 @@
   .title {
     font-size: 40px;
   }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .fittingItem,
+  .directionItem,
+  .benefitItem {
+    font-size: 16px;
+  }
+
+  .fittingNumber {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .addButton {
+    font-size: 16px;
+    padding: 14px 32px;
+    min-width: auto;
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -56,7 +216,7 @@
     font-size: 32px;
   }
 
-  .description {
-    font-size: 16px;
+  .sectionTitle {
+    font-size: 22px;
   }
 }
