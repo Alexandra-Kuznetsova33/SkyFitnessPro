@@ -1,0 +1,51 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import type { Course } from '../sharedTypes/types';
+import * as coursesService from '../services/courses';
+import { getApiErrorMessage } from '../utils/handleApiError';
+
+interface CoursesState {
+  items: Course[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+const initialState: CoursesState = {
+  items: [],
+  isLoading: false,
+  error: null,
+};
+
+export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: string }>(
+  'courses/fetchAll',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await coursesService.getAll();
+    } catch (error) {
+      return rejectWithValue(getApiErrorMessage(error));
+    }
+  },
+);
+
+const coursesSlice = createSlice({
+  name: 'courses',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAllCourses.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllCourses.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchAllCourses.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload ?? 'Не удалось загрузить курсы';
+      });
+  },
+});
+
+export default coursesSlice.reducer;
