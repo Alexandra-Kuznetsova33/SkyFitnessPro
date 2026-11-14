@@ -33,6 +33,11 @@ export interface User {
 
 // ===== Курсы =====
 
+export interface DailyDuration {
+  from: number;
+  to: number;
+}
+
 export interface Course {
   _id: string;
   nameRU: string;
@@ -41,14 +46,6 @@ export interface Course {
   directions: string[];
   fitting: string[];
   workouts: string[];
-}
-
-export interface DailyDuration {
-  from: number;
-  to: number;
-}
-
-export interface CourseDetails extends Course {
   difficulty: string;
   durationInDays: number;
   dailyDurationInMinutes: DailyDuration;

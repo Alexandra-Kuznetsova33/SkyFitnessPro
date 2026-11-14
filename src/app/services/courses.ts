@@ -1,4 +1,4 @@
-import type { Course, CourseDetails, MessageResponse, Workout } from '../sharedTypes/types';
+import type { Course, MessageResponse, Workout } from '../sharedTypes/types';
 
 import { API_ENDPOINTS } from './constants';
 import { api } from './api';
@@ -8,8 +8,8 @@ export const getAll = async (): Promise<Course[]> => {
   return response.data;
 };
 
-export const getById = async (courseId: string): Promise<CourseDetails> => {
-  const response = await api.get<CourseDetails>(API_ENDPOINTS.courses.byId(courseId));
+export const getById = async (courseId: string): Promise<Course> => {
+  const response = await api.get<Course>(API_ENDPOINTS.courses.byId(courseId));
   return response.data;
 };
 
