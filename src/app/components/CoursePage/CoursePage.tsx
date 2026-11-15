@@ -8,11 +8,30 @@ import { addCourse, fetchCourseById } from '../../redux/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { openAuthModal } from '../../redux/uiSlice';
 import { getCourseColor } from '../../utils/courseColors';
+import { getCourseImage } from '../../utils/courseImages';
 import styles from './CoursePage.module.css';
 
 interface CoursePageProps {
   courseId: string;
 }
+
+const BannerImage = ({ nameRU }: { nameRU: string }) => {
+  const imageSrc = getCourseImage(nameRU);
+  if (!imageSrc) return null;
+
+  return (
+    <div className={styles.bannerImageWrapper}>
+      <Image
+        src={imageSrc}
+        alt={nameRU}
+        width={600}
+        height={400}
+        className={styles.bannerImage}
+        priority
+      />
+    </div>
+  );
+};
 
 const BENEFITS = [
   'проработка всех групп мышц',
@@ -77,6 +96,7 @@ export const CoursePage = ({ courseId }: CoursePageProps) => {
     <div className={styles.page}>
       <div className={styles.banner} style={{ backgroundColor: getCourseColor(course.nameRU) }}>
         <h1 className={styles.title}>{course.nameRU}</h1>
+        <BannerImage nameRU={course.nameRU} />
       </div>
 
       <section className={styles.section}>
@@ -118,25 +138,25 @@ export const CoursePage = ({ courseId }: CoursePageProps) => {
 
       <div className={styles.benefitsWrapper}>
         <div className={styles.runnerBlock} aria-hidden="true">
-         <Image
-              src="/runner.png"
-              alt=""
-              width={604}
-              height={604}
-              className={styles.runnerImage}
-              aria-hidden="true"
-            />
+          <Image
+            src="/runner.png"
+            alt=""
+            width={604}
+            height={604}
+            className={styles.runnerImage}
+            aria-hidden="true"
+          />
         </div>
         <div className={styles.vectorMask} aria-hidden="true">
-            <Image
-              src="/vector.svg"
-              alt=""
-              width={670}
-              height={391}
-              className={styles.vectorImage}
-              unoptimized
-            />
-          </div>
+          <Image
+            src="/vector.svg"
+            alt=""
+            width={670}
+            height={391}
+            className={styles.vectorImage}
+            unoptimized
+          />
+        </div>
         <div className={styles.benefitsCard}>
           <div className={styles.textColumn}>
             <h2 className={styles.benefitsTitle}>
@@ -161,8 +181,6 @@ export const CoursePage = ({ courseId }: CoursePageProps) => {
               {buttonLabel}
             </button>
           </div>
-
-          
         </div>
       </div>
     </div>
