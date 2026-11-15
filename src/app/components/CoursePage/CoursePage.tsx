@@ -81,11 +81,11 @@ export const CoursePage = ({ courseId }: CoursePageProps) => {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Подойдет для вас, если:</h2>
-        <ul className={styles.sectionList}>
+        <ul className={styles.fittingList}>
           {course.fitting.map((item, index) => (
-            <li key={item} className={styles.fittingItem}>
+            <li key={item} className={styles.fittingCard}>
               <span className={styles.fittingNumber}>{index + 1}</span>
-              <span>{item}</span>
+              <span className={styles.fittingText}>{item}</span>
             </li>
           ))}
         </ul>
@@ -93,54 +93,78 @@ export const CoursePage = ({ courseId }: CoursePageProps) => {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Направления</h2>
-        <ul className={styles.directionsList}>
-          {course.directions.map((item) => (
-            <li key={item} className={styles.directionItem}>
-              <span className={styles.directionPlus}>+</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.directionsBox}>
+          <ul className={styles.directionsGrid}>
+            {course.directions.map((item) => (
+              <li key={item} className={styles.directionItem}>
+                <svg
+                  className={styles.directionIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Начните путь к новому телу</h2>
-        <ul className={styles.benefitsList}>
-          {BENEFITS.map((item) => (
-            <li key={item} className={styles.benefitItem}>
-              <span className={styles.benefitDot} />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className={styles.benefitsWrapper}>
+        <div className={styles.runnerBlock} aria-hidden="true">
+         <Image
+              src="/runner.png"
+              alt=""
+              width={604}
+              height={604}
+              className={styles.runnerImage}
+              aria-hidden="true"
+            />
+        </div>
+        <div className={styles.vectorMask} aria-hidden="true">
+            <Image
+              src="/vector.svg"
+              alt=""
+              width={670}
+              height={391}
+              className={styles.vectorImage}
+              unoptimized
+            />
+          </div>
+        <div className={styles.benefitsCard}>
+          <div className={styles.textColumn}>
+            <h2 className={styles.benefitsTitle}>
+              Начните путь
+              <br />к новому телу
+            </h2>
+            <ul className={styles.benefitsList}>
+              {BENEFITS.map((item) => (
+                <li key={item} className={styles.benefitItem}>
+                  <span className={styles.benefitDot} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-      <div className={styles.runnerWrapper}>
-        <Image
-          src="/vector.svg"
-          alt=""
-          width={1000}
-          height={500}
-          className={styles.vectorImage}
-          aria-hidden="true"
-        />
-        <Image
-          src="/runner.png"
-          alt="Спортсмен"
-          width={600}
-          height={600}
-          className={styles.runnerImage}
-        />
+            <button
+              type="button"
+              className={styles.addButton}
+              onClick={handleAddClick}
+              disabled={isAdded && !!user}
+            >
+              {buttonLabel}
+            </button>
+          </div>
+
+          
+        </div>
       </div>
-
-      <button
-        type="button"
-        className={styles.addButton}
-        onClick={handleAddClick}
-        disabled={isAdded && !!user}
-      >
-        {buttonLabel}
-      </button>
     </div>
   );
 };
