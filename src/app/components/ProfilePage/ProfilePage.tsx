@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
-import { CourseCard } from '../CourseCard/CourseCard';
+import { MyCourseCard } from '../MyCourseCard/MyCourseCard';
 import { fetchMyCourses } from '../../redux/coursesSlice';
 import { logout } from '../../redux/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -47,21 +48,14 @@ export const ProfilePage = () => {
       <h1 className={styles.pageTitle}>Профиль</h1>
 
       <section className={styles.userCard}>
-        <div className={styles.avatar} aria-hidden="true">
-          <svg
-            width="160"
-            height="160"
-            viewBox="0 0 160 160"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="160" height="160" fill="#D9D9D9" />
-            <circle cx="80" cy="60" r="28" fill="#FFFFFF" />
-            <path
-              d="M24 160C24 129.072 49.0721 104 80 104C110.928 104 136 129.072 136 160H24Z"
-              fill="#FFFFFF"
-            />
-          </svg>
+        <div className={styles.avatar}>
+          <Image
+            src="/profile-big.png"
+            alt=""
+            width={197}
+            height={197}
+            className={styles.avatarImage}
+          />
         </div>
 
         <div className={styles.userInfo}>
@@ -89,7 +83,7 @@ export const ProfilePage = () => {
         {!myCoursesError && !isMyCoursesLoading && myCourses.length > 0 && (
           <div className={styles.coursesList}>
             {myCourses.map((course) => (
-              <CourseCard key={course._id} course={course} />
+              <MyCourseCard key={course._id} course={course} />
             ))}
           </div>
         )}

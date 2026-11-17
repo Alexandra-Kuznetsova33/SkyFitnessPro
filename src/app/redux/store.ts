@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from './authSlice';
 import coursesReducer from './coursesSlice';
+import progressReducer from './progressSlice';
 import uiReducer from './uiSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     courses: coursesReducer,
+    progress: progressReducer,
     ui: uiReducer,
   },
 });

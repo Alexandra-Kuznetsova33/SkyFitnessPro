@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { Logo } from '../Logo/Logo';
 import { logout } from '../../redux/authSlice';
@@ -61,20 +62,13 @@ export const Header = () => {
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >
               <span className={styles.avatar}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="8" r="4" fill="#7B7B7B" />
-                  <path
-                    d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V22H4V20Z"
-                    fill="#7B7B7B"
-                  />
-                </svg>
+                <Image
+                  src="/profile-icon.png"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className={styles.avatarImage}
+                />
               </span>
               <span className={styles.login}>{login}</span>
               <svg
