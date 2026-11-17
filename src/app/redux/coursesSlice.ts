@@ -9,19 +9,25 @@ import { sortCourses } from '../utils/sortCourses';
 interface CoursesState {
   items: Course[];
   currentCourse: Course | null;
+  myCourses: Course[];
   isLoading: boolean;
   isCurrentLoading: boolean;
+  isMyCoursesLoading: boolean;
   error: string | null;
   currentError: string | null;
+  myCoursesError: string | null;
 }
 
 const initialState: CoursesState = {
   items: [],
   currentCourse: null,
+  myCourses: [],
   isLoading: false,
   isCurrentLoading: false,
+  isMyCoursesLoading: false,
   error: null,
   currentError: null,
+  myCoursesError: null,
 };
 
 export const fetchAllCourses = createAsyncThunk<Course[], void, { rejectValue: string }>(
@@ -41,6 +47,22 @@ export const fetchCourseById = createAsyncThunk<Course, string, { rejectValue: s
   async (courseId, { rejectWithValue }) => {
     try {
       return await coursesService.getById(courseId);
+    } catch (error) {
+      return rejectWithValue(getApiErrorMessage(error));
+    }
+  },
+);
+
+export const fetchMyCourses = createAsyncThunk<Course[], string[], { rejectValue: string }>(
+  'courses/fetchMy',
+  async (courseIds, { rejectWithValue }) => {
+    try {
+      if (courseIds.length === 0) {
+        return [];
+      }
+
+      const courses = await Promise.all(courseIds.map((id) => coursesService.getById(id)));
+      return sortCourses(courses);
     } catch (error) {
       return rejectWithValue(getApiErrorMessage(error));
     }
@@ -104,6 +126,18 @@ const coursesSlice = createSlice({
       .addCase(fetchCourseById.rejected, (state, action) => {
         state.isCurrentLoading = false;
         state.currentError = action.payload ?? 'Не удалось загрузить курс';
+      })
+      .addCase(fetchMyCourses.pending, (state) => {
+        state.isMyCoursesLoading = true;
+        state.myCoursesError = null;
+      })
+      .addCase(fetchMyCourses.fulfilled, (state, action) => {
+        state.isMyCoursesLoading = false;
+        state.myCourses = action.payload;
+      })
+      .addCase(fetchMyCourses.rejected, (state, action) => {
+        state.isMyCoursesLoading = false;
+        state.myCoursesError = action.payload ?? 'Не удалось загрузить ваши курсы';
       });
   },
 });
