@@ -77,7 +77,7 @@ export interface WorkoutProgress {
 export interface CourseProgress {
   courseId: string;
   courseCompleted: boolean;
-  workoutsProgress: WorkoutProgress[];
+  workoutsProgress?: WorkoutProgress[];
 }
 
 export interface SingleWorkoutProgress {

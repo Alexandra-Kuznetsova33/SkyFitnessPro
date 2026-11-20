@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { AuthModal } from '../AuthModal/AuthModal';
 import { Header } from '../Header/Header';
+import { WorkoutSelectModal } from '../WorkoutSelectModal/WorkoutSelectModal';
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -14,6 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <Header />
       <main className={styles.main}>{children}</main>
       <AuthModal />
+      <WorkoutSelectModal />
     </div>
   );
 };

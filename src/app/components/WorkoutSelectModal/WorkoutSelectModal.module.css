@@ -1,0 +1,171 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin: 0;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 360px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 0 0;
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #f7f7f7;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #f7f7f7;
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 10px;
+}
+
+.workoutButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  border-bottom: 1px solid #c4c4c4;
+  text-align: left;
+  transition: opacity 0.2s;
+}
+
+.workoutButton:hover {
+  opacity: 0.7;
+}
+
+.workoutButtonSelected {
+  background: rgba(188, 236, 48, 0.2);
+  border-radius: 12px;
+}
+
+.statusIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-black);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.statusCompleted {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.workoutInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.workoutName {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.workoutMeta {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.startButton {
+  width: 100%;
+  height: 52px;
+  padding: 16px 26px;
+  background: var(--color-primary);
+  border-radius: 46px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-black);
+  transition: background 0.2s;
+}
+
+.startButton:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.startButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading,
+.empty,
+.error {
+  text-align: center;
+  font-size: 16px;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.loading,
+.empty {
+  color: var(--color-text-secondary);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .workoutName {
+    font-size: 20px;
+  }
+
+  .workoutMeta {
+    font-size: 14px;
+  }
+
+  .startButton {
+    font-size: 16px;
+  }
+}

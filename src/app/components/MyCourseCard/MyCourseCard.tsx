@@ -10,6 +10,7 @@ import { removeCourse } from '../../redux/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { calcCourseProgress } from '../../utils/calcCourseProgress';
 import { getCourseColor } from '../../utils/courseColors';
+import { openWorkoutModal } from '../../redux/uiSlice';
 import styles from './MyCourseCard.module.css';
 
 interface MyCourseCardProps {
@@ -52,7 +53,7 @@ export const MyCourseCard = ({ course }: MyCourseCardProps) => {
   };
 
   const handleActionClick = () => {
-    toast.info('Переход на страницу тренировки будет в следующем шаге');
+    dispatch(openWorkoutModal(course._id));
   };
 
   return (
@@ -66,7 +67,15 @@ export const MyCourseCard = ({ course }: MyCourseCardProps) => {
           <div className={styles.meta}>
             <span className={styles.metaItem}>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                <rect x="2" y="4" width="14" height="12" rx="2" stroke="#000000" strokeWidth="1.5" />
+                <rect
+                  x="2"
+                  y="4"
+                  width="14"
+                  height="12"
+                  rx="2"
+                  stroke="#000000"
+                  strokeWidth="1.5"
+                />
                 <path d="M2 8H16" stroke="#000000" strokeWidth="1.5" />
                 <path d="M6 2V5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
                 <path d="M12 2V5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" />
@@ -116,11 +125,7 @@ export const MyCourseCard = ({ course }: MyCourseCardProps) => {
         </svg>
       </button>
 
-      <button
-        type="button"
-        className={styles.actionButton}
-        onClick={handleActionClick}
-      >
+      <button type="button" className={styles.actionButton} onClick={handleActionClick}>
         {getButtonLabel()}
       </button>
     </article>

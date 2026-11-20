@@ -4,6 +4,7 @@ import authReducer from './authSlice';
 import coursesReducer from './coursesSlice';
 import progressReducer from './progressSlice';
 import uiReducer from './uiSlice';
+import workoutsReducer from './workoutsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     courses: coursesReducer,
     progress: progressReducer,
     ui: uiReducer,
+    workouts: workoutsReducer,
   },
 });
 
