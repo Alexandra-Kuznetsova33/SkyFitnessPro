@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Logo } from '../Logo/Logo';
 import { logout } from '../../redux/authSlice';
@@ -50,7 +51,9 @@ export const Header = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.brand}>
-          <Logo />
+          <Link href="/" className={styles.logoLink} aria-label="На главную">
+            <Logo />
+          </Link>
           <span className={styles.subtitle}>Онлайн-тренировки для занятий дома</span>
         </div>
 

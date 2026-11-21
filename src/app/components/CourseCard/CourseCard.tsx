@@ -2,12 +2,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 import type { Course } from '../../sharedTypes/types';
 import { addCourse, removeCourse } from '../../redux/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { openAuthModal } from '../../redux/uiSlice';
 import { getCourseColor } from '../../utils/courseColors';
+import { getCourseCoverImage } from '../../utils/courseImages';
 import styles from './CourseCard.module.css';
 
 interface CourseCardProps {
@@ -48,7 +50,19 @@ export const CourseCard = ({ course }: CourseCardProps) => {
   return (
     <article className={styles.card}>
       <Link href={`/courses/${course._id}`} className={styles.cardLink}>
-        <div className={styles.cover} style={{ backgroundColor: bgColor }} />
+        <div className={styles.cover}>
+          {getCourseCoverImage(course.nameRU) ? (
+            <Image
+              src={getCourseCoverImage(course.nameRU)!}
+              alt={course.nameRU}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className={styles.coverImage}
+            />
+          ) : (
+            <div className={styles.coverFallback} style={{ backgroundColor: bgColor }} />
+          )}
+        </div>
 
         <div className={styles.info}>
           <h3 className={styles.title}>{course.nameRU}</h3>

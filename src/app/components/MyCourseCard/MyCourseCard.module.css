@@ -23,8 +23,19 @@
 }
 
 .cover {
+  position: relative; 
   aspect-ratio: 1 / 1;
   width: 100%;
+  overflow: hidden;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+.coverFallback {
+  width: 100%;
+  height: 100%;
 }
 
 .info {

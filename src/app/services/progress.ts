@@ -27,7 +27,8 @@ export const saveWorkoutProgress = async (
 ): Promise<WorkoutProgress> => {
   const response = await api.patch<WorkoutProgress>(
     API_ENDPOINTS.courses.workoutProgress(courseId, workoutId),
-    { progressData },
+    JSON.stringify({ progressData }),
+    { headers: { 'Content-Type': 'text/plain' } },
   );
   return response.data;
 };

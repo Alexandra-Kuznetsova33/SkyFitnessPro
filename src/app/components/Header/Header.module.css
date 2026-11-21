@@ -22,6 +22,16 @@
   gap: 4px;
 }
 
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.logoLink:hover {
+  opacity: 0.8;
+}
+
 .subtitle {
   font-size: 13px;
   color: var(--color-text-secondary);

@@ -9,11 +9,7 @@ import { fetchCourseProgress } from '../../redux/progressSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeWorkoutModal } from '../../redux/uiSlice';
 import styles from './WorkoutSelectModal.module.css';
-
-const getWorkoutTitle = (name: string): string => {
-  const [first] = name.split(' / ');
-  return first.trim();
-};
+import { getWorkoutTitle } from '../../utils/getWorkoutTitle';
 
 export const WorkoutSelectModal = () => {
   const dispatch = useAppDispatch();

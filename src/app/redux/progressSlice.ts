@@ -45,20 +45,17 @@ export const fetchWorkoutProgressById = createAsyncThunk<
 });
 
 export const saveWorkoutProgressThunk = createAsyncThunk<
-  { workoutId: string; data: SingleWorkoutProgress },
+  { workoutId: string; progressData: number[] },
   { courseId: string; workoutId: string; progressData: number[] },
   { rejectValue: string }
->(
-  'progress/saveWorkout',
-  async ({ courseId, workoutId, progressData }, { rejectWithValue }) => {
-    try {
-      const data = await progressService.saveWorkoutProgress(courseId, workoutId, progressData);
-      return { workoutId, data };
-    } catch (error) {
-      return rejectWithValue(getApiErrorMessage(error));
-    }
-  },
-);
+>('progress/saveWorkout', async ({ courseId, workoutId, progressData }, { rejectWithValue }) => {
+  try {
+    await progressService.saveWorkoutProgress(courseId, workoutId, progressData);
+    return { workoutId, progressData };
+  } catch (error) {
+    return rejectWithValue(getApiErrorMessage(error));
+  }
+});
 
 export const resetWorkoutProgressThunk = createAsyncThunk<
   { workoutId: string },
@@ -97,7 +94,14 @@ const progressSlice = createSlice({
       })
 
       .addCase(saveWorkoutProgressThunk.fulfilled, (state, action) => {
-        state.workoutProgressById[action.payload.workoutId] = action.payload.data;
+        const { workoutId, progressData } = action.payload;
+        const existing = state.workoutProgressById[workoutId];
+
+        state.workoutProgressById[workoutId] = {
+          workoutId,
+          workoutCompleted: existing?.workoutCompleted ?? false,
+          progressData,
+        };
       })
 
       .addCase(resetWorkoutProgressThunk.fulfilled, (state, action) => {

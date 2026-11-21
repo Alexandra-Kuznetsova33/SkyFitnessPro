@@ -4,6 +4,7 @@ import type { Workout } from '../sharedTypes/types';
 import * as coursesService from '../services/courses';
 import * as workoutsService from '../services/workouts';
 import { getApiErrorMessage } from '../utils/handleApiError';
+import { sortWorkouts } from '../utils/sortWorkouts';
 
 interface WorkoutsState {
   byCourseId: Record<string, Workout[]>;
@@ -59,7 +60,7 @@ const workoutsSlice = createSlice({
       })
       .addCase(fetchCourseWorkouts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.byCourseId[action.payload.courseId] = action.payload.workouts;
+        state.byCourseId[action.payload.courseId] = sortWorkouts(action.payload.workouts);
       })
       .addCase(fetchCourseWorkouts.rejected, (state, action) => {
         state.isLoading = false;
