@@ -27,6 +27,17 @@ export const CoursesPage = () => {
 
   return (
     <div className={styles.page}>
+      <div className={styles.hero}>
+        <h1 className={styles.heroTitle}>
+          Начните заниматься спортом
+          <br />и улучшите качество жизни
+        </h1>
+        <div className={styles.speechBubble}>
+          Измени своё
+          <br />
+          тело за полгода!
+        </div>
+      </div>
       <div className={styles.grid}>
         {isLoading
           ? Array.from({ length: SKELETON_COUNT }).map((_, index) => (

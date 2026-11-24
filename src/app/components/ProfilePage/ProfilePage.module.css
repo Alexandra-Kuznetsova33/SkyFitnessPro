@@ -5,8 +5,8 @@
 }
 
 .pageTitle {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 60px;
+  font-weight: 500;
   color: var(--color-text);
   margin: 0;
 }
@@ -46,7 +46,7 @@
 
 .userName {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-text);
   margin: 0;
   line-height: 1.2;
@@ -82,14 +82,14 @@
 }
 
 .sectionTitle {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 500;
   color: var(--color-text);
   margin: 0;
 }
 
 .empty {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--color-text-secondary);
   padding: 40px 0;
 }
@@ -97,7 +97,7 @@
 .coursesList {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 20px;
 }
 
 .loading {
@@ -133,18 +133,23 @@
   }
 
   .userCard {
-    padding: 20px;
+    padding: 16px;
     gap: 16px;
+    align-items: center;
   }
 
   .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 14px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .userInfo {
+    padding-top: 0;
+    gap: 4px;
   }
 
   .userName {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .userLogin {
@@ -152,17 +157,56 @@
   }
 
   .logoutButton {
-    padding: 8px 20px;
+    padding: 8px 16px;
     font-size: 13px;
+    margin-top: 8px;
   }
 
   .sectionTitle {
     font-size: 24px;
+  }
+
+  .coursesList {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
 @media (max-width: 640px) {
   .coursesList {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 375px) {
+  .userCard {
+    flex-direction: column;
+    gap: 30px;
+    align-items: stretch;
+  }
+
+  .avatar {
+    align-self: center;
+    width: 141px;
+    height: 141px;
+  }
+
+  .userInfo {
+    width: 100%;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .userName {
+    font-size: 24px;
+  }
+
+  .userLogin {
+    font-size: 16px;
+  }
+
+  .logoutButton {
+    width: 100%;
+    padding: 16px 20px;
   }
 }

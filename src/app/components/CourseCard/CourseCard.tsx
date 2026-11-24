@@ -116,14 +116,28 @@ export const CourseCard = ({ course }: CourseCardProps) => {
         disabled={isPending}
         aria-label={isAdded ? 'Удалить курс' : 'Добавить курс'}
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <svg
+          width="27"
+          height="27"
+          viewBox="0 0 27 27"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
           {isAdded ? (
-            <path d="M4 10H16" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+            <path
+              d="M13.3333 26.6667C20.6971 26.6667 26.6667 20.6971 26.6667 13.3333C26.6667 5.96954 20.6971 0 13.3333 0C5.96954 0 0 5.96954 0 13.3333C0 20.6971 5.96954 26.6667 13.3333 26.6667ZM6.66667 12V14.6667H20V12H6.66667Z"
+              fillRule="evenodd"
+              clipRule="evenodd"
+              fill="white"
+            />
           ) : (
-            <>
-              <path d="M10 4V16" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-              <path d="M4 10H16" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-            </>
+            <path
+              d="M13.3333 26.6667C20.6971 26.6667 26.6667 20.6971 26.6667 13.3333C26.6667 5.96954 20.6971 0 13.3333 0C5.96954 0 0 5.96954 0 13.3333C0 20.6971 5.96954 26.6667 13.3333 26.6667ZM12 12V6.66667H14.6667V12H20V14.6667H14.6667V20H12V14.6667H6.66667V12H12Z"
+              fillRule="evenodd"
+              clipRule="evenodd"
+              fill="white"
+            />
           )}
         </svg>
       </button>

@@ -8,7 +8,7 @@ import { addCourse, fetchCourseById } from '../../redux/coursesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { openAuthModal } from '../../redux/uiSlice';
 import { getCourseColor } from '../../utils/courseColors';
-import { getCourseImage } from '../../utils/courseImages';
+import { getCourseImage, getCourseCoverImage } from '../../utils/courseImages';
 import styles from './CoursePage.module.css';
 
 interface CoursePageProps {
@@ -17,19 +17,38 @@ interface CoursePageProps {
 
 const BannerImage = ({ nameRU }: { nameRU: string }) => {
   const imageSrc = getCourseImage(nameRU);
-  if (!imageSrc) return null;
+  const coverSrc = getCourseCoverImage(nameRU);
+
+  if (!imageSrc && !coverSrc) return null;
 
   return (
-    <div className={styles.bannerImageWrapper}>
-      <Image
-        src={imageSrc}
-        alt={nameRU}
-        width={600}
-        height={400}
-        className={styles.bannerImage}
-        priority
-      />
-    </div>
+    <>
+      {coverSrc && (
+        <div className={styles.mobileBannerImage}>
+          <Image
+            src={coverSrc}
+            alt={nameRU}
+            width={343}
+            height={343}
+            className={styles.bannerImageMobile}
+            priority
+          />
+        </div>
+      )}
+
+      {imageSrc && (
+        <div className={styles.desktopBannerImage}>
+          <Image
+            src={imageSrc}
+            alt={nameRU}
+            width={600}
+            height={400}
+            className={styles.bannerImage}
+            priority
+          />
+        </div>
+      )}
+    </>
   );
 };
 

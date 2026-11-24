@@ -23,14 +23,14 @@
 }
 
 .cover {
-  position: relative; 
+  position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
   overflow: hidden;
 }
 
 .coverImage {
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 .coverFallback {
@@ -42,27 +42,31 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  z-index: 1;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: opacity 0.2s;
+  z-index: 1;
 }
 
-.addButton:hover {
-  background: var(--color-white);
+.addButton svg {
+  width: 44px;
+  height: 44px;
 }
 
-.addButtonAdded {
-  background: var(--color-primary);
+.addButton:hover:not(:disabled) {
+  opacity: 0.85;
 }
 
-.addButtonAdded:hover {
-  background: var(--color-primary-hover);
+.addButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .info {
@@ -74,7 +78,7 @@
 
 .title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-text);
   line-height: 1.2;
 }
@@ -103,24 +107,85 @@
 }
 
 @media (max-width: 768px) {
-  .info {
+  .page {
+    gap: 28px;
+  }
+
+  .banner {
     padding: 20px;
-    gap: 12px;
+    min-height: 140px;
+    position: relative;
+    overflow: hidden;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 32px;
+    z-index: 2;
   }
 
-  .metaItem {
-    font-size: 13px;
-    padding: 6px 12px;
+  .bannerImageWrapper {
+    position: absolute;
+    right: -10px;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
   }
 
-  .addButton {
-    width: 40px;
-    height: 40px;
-    top: 16px;
-    right: 16px;
+  .bannerImage {
+    height: 100%;
+    width: auto;
+    max-height: 140px;
+    object-fit: contain;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .fittingList {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .fittingNumber {
+    font-size: 56px;
+  }
+
+  .fittingCard {
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .directionsBox {
+    padding: 20px;
+  }
+  .directionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
+  }
+
+  .directionItem {
+    font-size: 14px;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .directionIcon {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+  }
+
+  .benefitsCard {
+    padding: 24px;
+  }
+
+  .benefitsTitle {
+    font-size: 32px;
+  }
+
+  .benefitItem {
+    font-size: 16px;
   }
 }

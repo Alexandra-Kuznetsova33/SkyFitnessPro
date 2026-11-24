@@ -48,7 +48,7 @@
 
 .title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-text);
   line-height: 1.2;
   margin: 0;
@@ -110,17 +110,24 @@
   right: 20px;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: opacity 0.2s;
   z-index: 1;
 }
 
+.removeButton svg {
+  width: 44px;
+  height: 44px;
+}
+
 .removeButton:hover:not(:disabled) {
-  background: var(--color-white);
+  opacity: 0.85;
 }
 
 .removeButton:disabled {
