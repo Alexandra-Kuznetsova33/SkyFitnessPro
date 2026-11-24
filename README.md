@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkyFitnessPro
 
-## Getting Started
+Онлайн-платформа для фитнес-тренировок с курсами, уроками и отслеживанием прогресса.
 
-First, run the development server:
+## 🛠 Стек технологий
+
+- **Next.js 16** (App Router, Turbopack, TypeScript)
+- **Redux Toolkit** + **react-redux** — управление состоянием
+- **Axios** — HTTP-запросы
+- **CSS Modules** — стилизация (без Tailwind)
+- **react-toastify** — уведомления
+- **react-loading-skeleton** — скелетоны загрузки
+- **Jest** + **React Testing Library** — тестирование
+- **ESLint** + **Prettier** — качество и стиль кода
+
+## ✨ Функционал
+
+### Страницы
+
+- **Главная** — каталог всех курсов из API с фильтрацией по статусу добавления
+- **Авторизация / Регистрация** — модалка с валидацией полей и автологином после регистрации
+- **Страница курса** — описание, направления, преимущества и кнопка добавления
+- **Профиль** — только для авторизованных: карточка пользователя и список купленных курсов с прогрессом
+- **Тренировка** — видео, упражнения, прогресс-бары и модалка заполнения
+
+### Возможности
+
+- Регистрация и вход с JWT-токеном
+- Восстановление сессии при перезагрузке страницы
+- Добавление и удаление курсов
+- Заполнение и обновление прогресса по упражнениям
+- Сброс прогресса курса и отдельных тренировок
+- Кнопка «Наверх» на главной
+- Адаптивная вёрстка (mobile-first)
+- Защита роутов (редирект с `/profile` для гостей)
+- Toast-уведомления об ошибках API
+
+## 📁 Структура проекта
+
+```
+src/app/
+├── components/          # UI-компоненты (каждый в своей папке)
+│   ├── AuthModal/
+│   ├── CourseCard/
+│   ├── CoursesPage/
+│   ├── Header/
+│   ├── Layout/
+│   ├── Modal/
+│   ├── MyCourseCard/
+│   ├── ProfilePage/
+│   ├── ScrollToTop/
+│   ├── WorkoutPage/
+│   ├── WorkoutProgressModal/
+│   ├── WorkoutProgressSuccessModal/
+│   └── WorkoutSelectModal/
+├── redux/               # Слайсы, store, типизированные хуки
+│   ├── authSlice.ts
+│   ├── coursesSlice.ts
+│   ├── progressSlice.ts
+│   ├── uiSlice.ts
+│   ├── workoutsSlice.ts
+│   ├── store.ts
+│   ├── hooks.ts
+│   ├── AuthInit.tsx
+│   └── Providers.tsx
+├── services/            # Axios-инстанс и API-сервисы
+│   ├── api.ts
+│   ├── auth.ts
+│   ├── constants.ts
+│   ├── courses.ts
+│   ├── progress.ts
+│   └── workouts.ts
+├── sharedTypes/         # Общие TypeScript-типы
+│   └── types.ts
+├── utils/               # Утилиты и тесты
+│   ├── calcCourseProgress.ts
+│   ├── calcExerciseProgress.ts
+│   ├── cleanExerciseName.ts
+│   ├── courseColors.ts
+│   ├── courseImages.ts
+│   ├── handleApiError.ts
+│   ├── getWorkoutTitle.ts
+│   ├── getYoutubeEmbedUrl.ts
+│   ├── sortCourses.ts
+│   ├── sortWorkouts.ts
+│   └── validators.ts
+├── layout.tsx
+└── page.tsx
+```
+
+## 🚀 Запуск проекта
+
+### 1. Клонировать репозиторий
+
+```bash
+git clone https://github.com/Alexandra-Kuznetsova33/SkyFitnessPro.git
+cd SkyFitnessPro
+```
+
+### 2. Установить зависимости
+
+```bash
+npm install
+```
+
+### 3. Запустить dev-сервер
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Сборка и запуск production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 🧪 Тесты
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm test            # однократный запуск
+npm run test:watch  # режим наблюдения
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Покрыты чистые функции: `calcCourseProgress`, `calcExerciseProgress`, `handleApiError`, `sortCourses`, `validators`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Дизайн
 
-## Deploy on Vercel
+Макет: [Figma — SkyFitnessPro](https://www.figma.com/design/efIqPMajoJgo2FIfbFbn1G/SkyFitnessPro)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Дизайн-токены (цвета, радиусы, шрифты) описаны в `src/app/globals.css` как CSS-переменные.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 API
+
+Базовый URL: `https://wedev-api.sky.pro/api/fitness`
+
+Запросы проксируются через `rewrites` в `next.config.ts`, чтобы избежать проблем с CORS. Токен автоматически подставляется в заголовок `Authorization: Bearer <token>` через интерсептор Axios.
+
+**Особенность API:** мутационные запросы (`POST`, `PATCH`) принимают тело только с заголовком `Content-Type: text/plain`, иначе сервер возвращает `400`. Это учтено в `services/`.
+
+## 🚀 Деплой
+
+Проект задеплоен на **Cloudflare Pages**: [ссылка на деплой]
+
+## 📜 Скрипты
+
+| Команда | Назначение |
+|---|---|
+| `npm run dev` | Запуск dev-сервера |
+| `npm run build` | Production-сборка |
+| `npm start` | Запуск production-сервера |
+| `npm run lint` | Проверка ESLint |
+| `npm test` | Запуск тестов Jest |
+| `npm run test:watch` | Тесты в режиме наблюдения |
+
+## 👤 Автор
+
+**Alexandra Kuznetsova** — [GitHub](https://github.com/Alexandra-Kuznetsova33)
+
+---
+
+Проект выполнен в рамках дипломной работы курса «Frontend-разработчик» (Skypro).
