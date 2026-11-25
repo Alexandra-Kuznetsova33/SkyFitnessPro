@@ -9,9 +9,10 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  maxWidth?: string;
 }
 
-export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+export const Modal = ({ isOpen, onClose, children, maxWidth }: ModalProps) => {
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -44,7 +45,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.content} role="dialog" aria-modal="true">
+      <div className={styles.content} role="dialog" aria-modal="true" style={{ '--modal-max-width': maxWidth } as React.CSSProperties}>
         <button
           type="button"
           className={styles.closeButton}
@@ -52,8 +53,8 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
           aria-label="Закрыть"
         >
           <svg
-            width="20"
-            height="20"
+            width="15"
+            height="15"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

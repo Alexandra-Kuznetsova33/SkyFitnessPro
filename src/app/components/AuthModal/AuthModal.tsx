@@ -8,6 +8,8 @@ import { loginThunk, registerThunk } from '../../redux/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeAuthModal } from '../../redux/uiSlice';
 import styles from './AuthModal.module.css';
+import { Logo } from '../Logo/Logo';
+import Link from 'next/link';
 
 type Mode = 'login' | 'register';
 
@@ -126,7 +128,11 @@ export const AuthModal = () => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <div className={styles.container}>
-        <h2 className={styles.title}>SkyFitnessPro</h2>
+        <div className={styles.brand}>
+          <Link href="/" className={styles.logoLink} aria-label="На главную">
+            <Logo />
+          </Link>
+        </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.field}>

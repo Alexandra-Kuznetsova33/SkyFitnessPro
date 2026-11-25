@@ -67,7 +67,7 @@ export const WorkoutSelectModal = () => {
   };
 
   return (
-    <Modal isOpen={Boolean(courseId)} onClose={() => dispatch(closeWorkoutModal())}>
+    <Modal isOpen={Boolean(courseId)} onClose={() => dispatch(closeWorkoutModal())} maxWidth="460px">
       <div className={styles.container}>
         <h2 className={styles.title}>Выберите тренировку</h2>
 
